@@ -6,13 +6,13 @@ export default class BookstoreService {
                 id: 1,
                 title: '"Bonne Maison Chaussette" ',
                 author: ' BONNE MAISON',
-                price: '$19',
+                price: 19,
                 coverImage: 'https://www.frenchtrotters.fr/23962/bonne-maison-chaussette.jpg' },
             {
                 id: 2,
                 title: '"Wr Cable Crewneck" ',
                 author: ' WOOLRICH ',
-                price: '$250',
+                price: 250,
                 coverImage: 'https://www.frenchtrotters.fr/24112/wr-cable-crewneck.jpg'}
         ];
     getBooks() {

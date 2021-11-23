@@ -1,12 +1,13 @@
 import React from 'react';
-import './shopping-cart-table.css'
+import { connect } from 'react-redux';
 
+import './shopping-cart-table.css'
 import addIcon from '../../img/add.png';
 import removeIcon from '../../img/remove.png';
 import trashIcon from '../../img/trash.png';
 
 import { bookAddedToCart, bookRemovedFromCart, allBooksRemovedFromCart } from '../../actions';
-import { connect } from 'react-redux';
+
 
 const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
     const renderRow = (item, idx) => {
@@ -16,7 +17,7 @@ const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) =
                 <td>{idx + 1}</td>
                 <td>{title}</td>
                 <td>{count}</td>
-                <td>{total}</td>
+                <td>${total}</td>
                 <td>
                     <button
                     onClick={() => onIncrease(id)}
@@ -45,7 +46,7 @@ const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) =
                     </tr>
                 </thead>
                 <tbody>                    
-                        { items.map(renderRow) }                    
+                    { items.map(renderRow) }                    
                 </tbody>
             </table>
             <div className="total">
@@ -55,7 +56,7 @@ const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) =
     );
 };
 
-const mapStateToProps = ({ cartItems, orderTotal }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal }}) => {
     return {
         items: cartItems,
         total: orderTotal

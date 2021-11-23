@@ -1,104 +1,11 @@
-const initialState = {
-    books: [],
-    loading: true,
-    error: null,
-    cartItems: [],
-    orderTotal: 210
-};
+import updateShoppingCart from "./shopping-cart";
+import updateItemsList from './items-list';
 
-const updateCartItems = (cartItems, item, idx) => {
-//delete el from array
-    if (item.count === 0) {
-        return [            
-        ...cartItems.slice(0, idx),        
-        ...cartItems.slice(idx + 1)
-        ];
-    }
-//item потом заменить на el
-    if (idx === -1) {
-        return [
-            ...cartItems,
-            item
-        ];
-    }
-//add el to array
-    return [
-        ...cartItems.slice(0, idx),
-        item,
-        ...cartItems.slice(idx + 1)
-    ];
-};
-//deleting the el it's adding -1 el
-const updateCartItem = (book, item = {}, quantity) => {
-
-    const { 
-        id = book.id, 
-        count = 0, 
-        title = book.title, 
-        total = 0  } = item;
-    
+const reducer = (state, action) => {
     return {
-        id,
-        title,
-        count: count + quantity,
-        total: total + quantity*book.price
-    }
-};
-
-const updateOrder = (state, bookId, quantity) => {
-    const { books, cartItems } = state;
-    
-    const book = books.find(({id}) => id === bookId);
-    const itemIndex = cartItems.findIndex(({id}) => id === bookId);
-    const item = cartItems[itemIndex];
-
-    const newItem = updateCartItem(book, item, quantity);
-    return {
-        ...state,
-        cartItems: updateCartItems(cartItems, newItem, itemIndex)
-    }; 
-};
-
-
-const reducer = (state = initialState, action) => {
-    
-    console.log(action.type);
-
-    switch (action.type) {
-        case 'FETCH_ITEMS_REQUEST':
-            return {
-                ...state,
-                books: [],
-                loading: true,
-                error: null
-            };    
-        case 'FETCH_ITEMS_SUCCESS':
-            return {
-                ...state,
-                books: action.payload,
-                loading: false,
-                error: null
-            };
-        case 'FETCH_ITEMS_FAILURE':
-            return {
-                ...state,
-                books: [],
-                loading: false,
-                error: action.payload
-            };
-        case 'ITEM_ADDED_TO_CART':            
-            return updateOrder(state, action.payload, 1);
-
-        case 'ITEM_REMOVED_FROM_CART':            
-            return updateOrder(state, action.payload, -1);
-
-        case 'ALL_ITEMS_REMOVED_FROM_CART':
-            const item = state.cartItems.find(({id}) => id === action.payload); 
-            return updateOrder(state, action.payload, -item.count);
-            
-        default:
-            return state;
-    }    
+        itemsList: updateItemsList(state, action),
+        shoppingCart: updateShoppingCart(state, action)
+    };    
 };
 
 export default reducer;

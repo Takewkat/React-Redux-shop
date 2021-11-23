@@ -5,24 +5,25 @@ import BookListItem from '../book-list-item';
 import { fetchBooks, bookAddedToCart } from '../../actions';
 import { withBookstoreService } from '../hoc';
 import { compose } from '../../utils';
+
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 
 const BookList = ({ books, onAddedToCart }) => {
     return (
-                <ul className="item-list">
-                    {
-                        books.map((book) => {
-                            return (
-                                <li key={book.id}>
-                                    <BookListItem book={book}
-                                    onAddedToCart={() => onAddedToCart(book.id)} />
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-            );
+        <ul className="item-list">
+            {
+                books.map((book) => {
+                    return (
+                        <li key={book.id}>
+                            <BookListItem book={book}
+                            onAddedToCart={() => onAddedToCart(book.id)} />
+                        </li>
+                    )
+                })
+            }
+        </ul>
+    );
 };
 
 class BookListContainer extends Component {
@@ -56,7 +57,7 @@ class BookListContainer extends Component {
     }
 };
 
-const mapStateToProps = ({ books, loading, error })=> {
+const mapStateToProps = ({ itemsList: { books, loading, error }})=> {
     return { books, loading, error };
 };
 
