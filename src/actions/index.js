@@ -1,28 +1,38 @@
 const booksRequested = () => {
     return {
-        type: 'FETCH_BOOKS_REQUEST'
+        type: 'FETCH_ITEMS_REQUEST'
     }
 };
 const booksLoaded = (newBooks) => {
     return {
-        type: 'FETCH_BOOKS_SUCCESS',
+        type: 'FETCH_ITEMS_SUCCESS',
         payload: newBooks
     };
 };
 const booksError = (error) => {
     return {
-        type: 'FETCH_BOOKS_FAILURE',
+        type: 'FETCH_ITEMS_FAILURE',
         payload: error
     };
 };
-
 export const bookAddedToCart = (bookId) => {
     return {
-        type: 'BOOK_ADDED_TO_CART',
+        type: 'ITEM_ADDED_TO_CART',
         payload: bookId
     };
 };
-
+export const bookRemovedFromCart = (bookId) => {
+    return {
+        type: 'ITEM_REMOVED_FROM_CART',
+        payload: bookId
+    };
+};
+export const allBooksRemovedFromCart = (bookId) => {
+    return {
+        type: 'ALL_ITEMS_REMOVED_FROM_CART',
+        payload: bookId
+    };
+};
 const fetchBooks = (bookstoreService, dispatch) => () => {
     dispatch(booksRequested());
     bookstoreService.getBooks()                

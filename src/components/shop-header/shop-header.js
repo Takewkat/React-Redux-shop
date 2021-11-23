@@ -10,7 +10,7 @@ const ShopHeader = ({ numItems, total }) => {
             </Link>
             <Link to="/cart">
                 <div>
-                    <img src={cartImage} class="cart-image" alt="cart"/>
+                    <img src={cartImage} className="cart-image" alt="cart"/>
                     <i className="cart" />
                     {numItems} items (${total})
                 </div>
