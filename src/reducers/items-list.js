@@ -1,3 +1,4 @@
+
 const updateItemsList = (state, action) => {
 
     if (state === undefined ) {
